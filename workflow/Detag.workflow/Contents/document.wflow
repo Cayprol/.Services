@@ -166,9 +166,9 @@
 					<string>for f in "$@"
 do
 	cd "$f"
-	cp ~/.Services/remove_Tags.py "$f"
-	/Library/Frameworks/Python.framework/Versions/3.6/bin/python3 ./remove_Tags.py
-	rm "$f"/remove_Tags.py
+	cp ~/.Services/.remove_Tags.py "$f"
+	/Library/Frameworks/Python.framework/Versions/3.6/bin/python3 ./.remove_Tags.py
+	rm "$f"/.remove_Tags.py
 done</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
@@ -292,7 +292,7 @@ done</string>
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>361C9E33-6A69-4741-9D6F-B4395350CD62</key>
+		<key>4E4E019E-D463-41EE-A461-C3B7A8159CB8</key>
 		<dict>
 			<key>from</key>
 			<string>D916F218-4EE6-474E-8430-591544952FAC - D916F218-4EE6-474E-8430-591544952FAC</string>
