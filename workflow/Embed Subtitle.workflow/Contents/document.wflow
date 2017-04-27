@@ -166,9 +166,10 @@
 					<string>for f in "$@"
 do
 	cd "$f"
-	cp ~/.Services/add\ subtitle\ from\ mp4\ to\ mkv.py "$f"
-	python "$f"/.add\ subtitle\ from\ mp4\ to\ mkv.py
-	rm "$f"/.add\ subtitle\ from\ mp4\ to\ mkv.py
+	cp ~/.Services/.EmbedSubtitle.py "$f"
+	python "$f"/.EmbedSubtitle.py
+	rm "$f"/.EmbedSubtitle.py
+	osascript -e 'tell app "Finder" to display dialog "Embed Subtitle Completed"'
 done
 
 </string>
@@ -294,7 +295,7 @@ done
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>C632438C-7C8C-4B11-9922-FC55734A793D</key>
+		<key>DE648FDD-2442-4AEE-9CD4-F0176DFC248C</key>
 		<dict>
 			<key>from</key>
 			<string>699F6FE9-E61A-4DBC-B4A0-D2E1539154F2 - 699F6FE9-E61A-4DBC-B4A0-D2E1539154F2</string>
