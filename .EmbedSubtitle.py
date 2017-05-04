@@ -22,8 +22,8 @@ def schar(char):
     else:
         return char
 
-command=''
-cmdname=''
+command=''  # The output actually being typed in terminal by subprocess
+cmdname=''  # The file name without extension translated to type in terminal to avoid error caused by special characters.
 for ASS in os.listdir('.'):
     if fnmatch.fnmatch(ASS, '*.ass'):
         ASSsubtitle.append(ASS[:-4])
