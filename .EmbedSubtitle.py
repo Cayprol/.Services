@@ -1,12 +1,8 @@
 import fnmatch
 import os
 import subprocess
+import re
 #ffmpeg -i input.mp4 -i input.ass -c:v copy -c:a copy -c:s copy -map 0:0 -map 0:1 -map 1:0 -y out.mkv
-ASSsubtitle=[]
-SSAsubtitle=[]
-SRTsubtitle=[]
-MP4videoFile=[]
-MKVvideoFile=[]
 
 def schar(char):
     if char==' ':
@@ -23,71 +19,52 @@ def schar(char):
         return char
 
 command=''  # The output actually being typed in terminal by subprocess
-cmdname=''  # The file name without extension translated to type in terminal to avoid error caused by special characters.
-for ASS in os.listdir('.'):
-    if fnmatch.fnmatch(ASS, '*.ass'):
-        ASSsubtitle.append(ASS[:-4])
+ASSsubtitle=[ASS[:-4] for ASS in os.listdir('.') if re.search(r'.+\.ass$', ASS, re.I)]
+SSAsubtitle=[SSA[:-4] for SSA in os.listdir('.') if re.search(r'.+\.ssa$', SSA, re.I)]
+SRTsubtitle=[SRT[:-4] for SRT in os.listdir('.') if re.search(r'.+\.srt$', SRT, re.I)]
+MKVvideoFile=[MKV[:-4] for MKV in os.listdir('.') if re.search(r'.+\.mkv$', MKV, re.I)]
+MP4videoFile=[MP4[:-4] for MP4 in os.listdir('.') if re.search(r'.+\.mp4$', MP4, re.I)]
 
-for SSA in os.listdir('.'):
-    if fnmatch.fnmatch(SSA, '*.ssa'):
-        SSAsubtitle.append(SSA[:-4])
 
-for MP4 in os.listdir('.'):
-    if fnmatch.fnmatch(MP4, '*.mp4'):
-        MP4videoFile.append(MP4[:-4])
-
-for SRT in os.listdir('.'):
-    if fnmatch.fnmatch(SRT, '*.srt'):
-        SRTsubtitle.append(SRT[:-4])
-for MKV in os.listdir('.'):
-	if fnmatch.fnmatch(MKV, '*.mkv'):
-		MKVvideoFile.append(MKV[:-4])
 
 for name in MKVvideoFile:
+    cmdname=''
+    for char in name:
+        cmdname+=schar(char)
+    tup=(cmdname+'.mkv', cmdname, cmdname+'Sub.mkv')
     if name in SRTsubtitle and name not in ASSsubtitle and name not in SSAsubtitle:
-        for char in name:
-            cmdname=cmdname+schar(char)
-        command='/usr/local/bin/ffmpeg -i '+cmdname+'.mkv -i '+cmdname+'.srt -c:v copy -c:a copy -c:s copy -map 0:0 -map 0:1 -map 1:0 -y '+cmdname+'Sub'+'.mkv'
+        command='/usr/local/bin/ffmpeg -i {} -i {}.srt -c:v copy -c:a copy -c:s copy -map 0:0 -map 0:1 -map 1:0 -y {}'.format(*tup)
         print (command)
         subprocess.call(command, shell=True)
-        cmdname=''
 
     elif name in SSAsubtitle and name not in ASSsubtitle:
-        for char in name:
-            cmdname=cmdname+schar(char)
-        command='/usr/local/bin/ffmpeg -i '+cmdname+'.mkv -i '+cmdname+'.ssa -c:v copy -c:a copy -c:s copy -map 0:0 -map 0:1 -map 1:0 -y '+cmdname+'Sub'+'.mkv'
+        command='/usr/local/bin/ffmpeg -i {} -i {}.ssa -c:v copy -c:a copy -c:s copy -map 0:0 -map 0:1 -map 1:0 -y {}'.format(*tup)
         print (command)
         subprocess.call(command, shell=True)
-        cmdname=''
 
     elif name in ASSsubtitle:
-        for char in name:
-            cmdname=cmdname+schar(char)
-        command='/usr/local/bin/ffmpeg -i '+cmdname+'.mkv -i '+cmdname+'.ass -c:v copy -c:a copy -c:s copy -map 0:0 -map 0:1 -map 1:0 -y '+cmdname+'Sub'+'.mkv'
+        command='/usr/local/bin/ffmpeg -i {} -i {}.ass -c:v copy -c:a copy -c:s copy -map 0:0 -map 0:1 -map 1:0 -y {}'.format(*tup)
         subprocess.call(command, shell=True)
-        cmdname=''
+
+
 
 for name in MP4videoFile:
+    cmdname=''
+    for char in name:
+        cmdname+=schar(char)
+    tup=(cmdname+'.mp4', cmdname, cmdname+'Sub.mkv')
     if name in SRTsubtitle and name not in ASSsubtitle and name not in SSAsubtitle:
-	    for char in name:
-	        cmdname=cmdname+schar(char)
-	    command='/usr/local/bin/ffmpeg -i '+cmdname+'.mp4 -i '+cmdname+'.srt -c:v copy -c:a copy -c:s copy -map 0:0 -map 0:1 -map 1:0 -y '+cmdname+'.mkv'
+	    command='/usr/local/bin/ffmpeg -i {} -i {}.srt -c:v copy -c:a copy -c:s copy -map 0:0 -map 0:1 -map 1:0 -y {}'.format(*tup)
 	    print (command)
 	    subprocess.call(command, shell=True)
-	    cmdname=''
 
     elif name in SSAsubtitle and name not in ASSsubtitle:
-        for char in name:
-            cmdname=cmdname+schar(char)
-        command='/usr/local/bin/ffmpeg -i '+cmdname+'.mp4 -i '+cmdname+'.ssa -c:v copy -c:a copy -c:s copy -map 0:0 -map 0:1 -map 1:0 -y '+cmdname+'.mkv'
+        command='/usr/local/bin/ffmpeg -i {} -i {}.ssa -c:v copy -c:a copy -c:s copy -map 0:0 -map 0:1 -map 1:0 -y {}'.format(*tup)
         print (command)
         subprocess.call(command, shell=True)
-        cmdname=''
 
     elif name in ASSsubtitle:
-        for char in name:
-            cmdname=cmdname+schar(char)
-        command='/usr/local/bin/ffmpeg -i '+cmdname+'.mp4 -i '+cmdname+'.ass -c:v copy -c:a copy -c:s copy -map 0:0 -map 0:1 -map 1:0 -y '+cmdname+'.mkv'
+        command='/usr/local/bin/ffmpeg -i {} -i {}.ass -c:v copy -c:a copy -c:s copy -map 0:0 -map 0:1 -map 1:0 -y {}'.format(*tup)
         subprocess.call(command, shell=True)
-        cmdname=''
+
 
