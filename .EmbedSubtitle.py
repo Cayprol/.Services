@@ -19,11 +19,11 @@ def schar(char):
         return char
 
 command=''  # The output actually being typed in terminal by subprocess
-ASSsubtitle=[ASS[:-4] for ASS in os.listdir('.') if re.search(r'.+\.ass$', ASS, re.I)]
-SSAsubtitle=[SSA[:-4] for SSA in os.listdir('.') if re.search(r'.+\.ssa$', SSA, re.I)]
-SRTsubtitle=[SRT[:-4] for SRT in os.listdir('.') if re.search(r'.+\.srt$', SRT, re.I)]
-MKVvideoFile=[MKV[:-4] for MKV in os.listdir('.') if re.search(r'.+\.mkv$', MKV, re.I)]
-MP4videoFile=[MP4[:-4] for MP4 in os.listdir('.') if re.search(r'.+\.mp4$', MP4, re.I)]
+ASSsubtitle=[ASS[:-4] for ASS in os.listdir(os.getcwd()) if re.search(r'.+\.ass$', ASS, re.I)]
+SSAsubtitle=[SSA[:-4] for SSA in os.listdir(os.getcwd()) if re.search(r'.+\.ssa$', SSA, re.I)]
+SRTsubtitle=[SRT[:-4] for SRT in os.listdir(os.getcwd()) if re.search(r'.+\.srt$', SRT, re.I)]
+MKVvideoFile=[MKV[:-4] for MKV in os.listdir(os.getcwd()) if re.search(r'.+\.mkv$', MKV, re.I)]
+MP4videoFile=[MP4[:-4] for MP4 in os.listdir(os.getcwd()) if re.search(r'.+\.mp4$', MP4, re.I)]
 
 
 
