@@ -107,7 +107,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.000000:174.000000</string>
+				<string>749.500000:174.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Open Finder Items.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -166,9 +166,7 @@
 					<string>for f in "$@"
 do
 	cd "$f"
-	cp ~/.Services/.EmbedSubtitle.py "$f"
-	python "$f"/.EmbedSubtitle.py
-	rm "$f"/.EmbedSubtitle.py
+	python ~/.Services/.EmbedSubtitle.py
 	osascript -e 'tell app "Finder" to display dialog "Embed Subtitle Completed"'
 done
 
@@ -285,7 +283,7 @@ done
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.000000:357.000000</string>
+				<string>749.500000:501.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/English.lproj/main.nib</string>
 			</dict>
@@ -295,7 +293,7 @@ done
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>DE648FDD-2442-4AEE-9CD4-F0176DFC248C</key>
+		<key>4D5BB6C3-32D4-4A22-933E-C23D1D2A8C10</key>
 		<dict>
 			<key>from</key>
 			<string>699F6FE9-E61A-4DBC-B4A0-D2E1539154F2 - 699F6FE9-E61A-4DBC-B4A0-D2E1539154F2</string>
