@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>GameMode.scpt</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/bin/osascript</string>
+		<string>/Users/cayprol/.Services/GameMode.scpt</string> <!-- path to the script wish to run in background -->
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+</dict>
+</plist>
+
+<!--
+	this file should be placed in ~/Library/LaunchAgents
+	Load/Unload this Agents with
+	launchctl load -w ~/Library/LaunchAgents/GameModeAgent.plist
+	launchctl unload -w ~/Library/LaunchAgents/GameModeAgent.plist
+-->
+
